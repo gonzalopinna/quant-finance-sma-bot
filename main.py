@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # define the ticker
-ticker = "APPL"
+ticker = "AAPL"
 
 # Fetching 5-year historical daily data for AAPL(as an example)
 print(f"Pulling historical market data for {ticker}...")
@@ -45,4 +45,5 @@ plt.ylabel("Price (USD)")
 plt.legend(loc='upper left')
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
+
 
