@@ -2,9 +2,12 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
 
+# define the ticker
+ticker = "NVDA"
+
 # Fetching 5-year historical daily data for AAPL(as an example)
-print("Pulling historical market data for AAPL...")
-data = yf.download("AAPL", period="5y")
+print(f"Pulling historical market data for {ticker}...")
+data = yf.download(ticker, period="5y")
 
 # Quick sanity check on the dataframe structure
 print("Data structure verified.")
@@ -27,7 +30,7 @@ for date, row in data[data['Position'] == -1].iterrows():
 
 # Visualizing the Price Action alongside our new SMA indicators and configure the graph
 plt.figure(figsize=(12, 6))
-plt.plot(data.index, data['Close'], label='AAPL Close Price', color='midnightblue', alpha=0.5)
+plt.plot(data.index, data['Close'], label=f'{ticker} Close Price', color='midnightblue', alpha=0.5)
 plt.plot(data.index, data['SMA_50'], label='50-Day SMA', color='orange', linewidth=2)
 plt.plot(data.index, data['SMA_200'], label='200-Day SMA', color='red', linewidth=2)
 
@@ -36,7 +39,7 @@ plt.plot(data[data['Position'] == 1].index, data['SMA_50'][data['Position'] == 1
 plt.plot(data[data['Position'] == -1].index, data['SMA_50'][data['Position'] == -1], 'v', markersize=10, color='r', label='Sell Signal')
 
 # Styling the chart for a more explicit analysis
-plt.title("AAPL Price Action with 50 & 200-Day SMAs")
+plt.title(f"{ticker} Price Action with 50 & 200-Day SMAs")
 plt.xlabel("Date")
 plt.ylabel("Price (USD)")
 plt.legend(loc='upper left')
