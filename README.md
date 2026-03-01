@@ -5,7 +5,9 @@ Python-based quantitative analysis script that detects algorithmic trading signa
 A Python-based quantitative analysis script that fetches historical market data, applies technical indicators, and generates automated algorithmic trading signals based on Simple Moving Average (SMA) crossovers.
 
 
-![AAPL Bot Chart](assets/aapl_chart.png)
+![AAPL Bot Chart](assets/apple.png)
+![BTC-USD Bot Chart](assets/btc-usd.png)
+![NVDA Bot Chart](assets/NVDA.png)
 
 
 ## Key Features
