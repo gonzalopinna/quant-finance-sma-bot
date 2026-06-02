@@ -1,34 +1,41 @@
-# quant-finance-sma-bot
-Python-based quantitative analysis script that detects algorithmic trading signals using 50-day and 200-day Simple Moving Average (SMA) crossovers.
-# Algorithmic Trading: SMA Crossover Bot
+# SMA Crossover Bot
 
-A Python-based quantitative analysis script that fetches historical market data, applies technical indicators, and generates automated algorithmic trading signals based on Simple Moving Average (SMA) crossovers.
+A small learning project that fetches historical market data, calculates 50-day and 200-day Simple Moving Averages, and marks basic crossover signals.
 
+The goal is not to provide trading advice. It is a practical first project for getting comfortable with Python, financial data APIs, time series data, and simple visualization.
 
 ![AAPL Bot Chart](assets/apple.png)
 ![BTC-USD Bot Chart](assets/btc-usd.png)
 ![NVDA Bot Chart](assets/NVDA.png)
 
-
 ## Key Features
-
-* **Data Ingestion:** Automated fetching of historical daily market data using the `yfinance` API.
-* **Technical Analysis:** Calculates 50-day (short-term) and 200-day (long-term) Simple Moving Averages to identify macro trends and filter out market noise.
-* **Automated Signal Generation:** Utilizes `numpy` vectorization to efficiently scan the time series and pinpoint exact "Golden Cross" (Buy) and "Death Cross" (Sell) signals.
-* **Data Visualization:** Renders a clean, professional financial chart using `matplotlib` to visually verify the price action alongside the SMA indicators and trading signals.
+- Fetches historical daily market data using the `yfinance` API.
+- Calculates 50-day and 200-day Simple Moving Averages.
+- Detects basic buy/sell crossover points using NumPy.
+- Visualizes close price, moving averages, and crossover markers with Matplotlib.
 
 ## Tech Stack
+- Python
+- Pandas
+- NumPy
+- yfinance
+- Matplotlib
 
-* **Language:** Python
-* **Data Manipulation:** Pandas, NumPy
-* **Market Data API:** yfinance
-* **Visualization:** Matplotlib
+## Setup
+```bash
+python -m pip install -r requirements.txt
+```
 
-# How to Run
+## How to Run
+```bash
+python main.py
+```
 
-1. Clone this repository to your local machine.
-2. Install the required dependencies:
-   ```bash
-   pip install yfinance pandas numpy matplotlib
-3. Run the script
- Note: The script is currently set to analyze Apple (AAPL) over a 5-year period, but the ticker and timeframe can be easily modified in the code to backtest any other equity, index, or cryptocurrency.
+You can also choose a ticker and period:
+
+```bash
+python main.py --ticker NVDA --period 5y --output assets/NVDA.png
+```
+
+## Notes
+This is an introductory project for learning purposes. The default example analyzes Apple (`AAPL`) over a 5-year period.

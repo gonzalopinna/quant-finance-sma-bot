@@ -1,13 +1,27 @@
 import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
+from pathlib import Path
 
-# define the ticker
-ticker = "AAPL"
 
-# Fetching 5-year historical daily data for AAPL(as an example)
+def parse_args():
+    parser = argparse.ArgumentParser(description="Simple SMA crossover learning script.")
+    parser.add_argument("--ticker", default="AAPL", help="Ticker to analyze, for example AAPL or BTC-USD.")
+    parser.add_argument("--period", default="5y", help="yfinance period, for example 1y, 5y, or max.")
+    parser.add_argument("--output", default="", help="Optional path to save the generated chart.")
+    return parser.parse_args()
+
+
+args = parse_args()
+ticker = args.ticker.upper()
+
+# Fetch historical daily data for the selected ticker.
 print(f"Pulling historical market data for {ticker}...")
-data = yf.download(ticker, period="5y")
+data = yf.download(ticker, period=args.period)
+
+if data.empty:
+    raise SystemExit(f"No market data returned for {ticker}.")
 
 # Quick sanity check on the dataframe structure
 print("Data structure verified.")
@@ -24,9 +38,9 @@ data['Position'] = data['Signal'].diff()
 
 # print the buy/sell signal dates
 for date, row in data[data['Position'] == 1].iterrows():
-    print(f"🟢 BUY Signal detected on: {date.strftime('%Y-%m-%d')}")
+    print(f"[BUY] Signal detected on: {date.strftime('%Y-%m-%d')}")
 for date, row in data[data['Position'] == -1].iterrows():
-    print(f"🔴 SELL Signal detected on: {date.strftime('%Y-%m-%d')}")
+    print(f"[SELL] Signal detected on: {date.strftime('%Y-%m-%d')}")
 
 # Visualizing the Price Action alongside our new SMA indicators and configure the graph
 plt.figure(figsize=(12, 6))
@@ -44,6 +58,13 @@ plt.xlabel("Date")
 plt.ylabel("Price (USD)")
 plt.legend(loc='upper left')
 plt.grid(True, linestyle='--', alpha=0.7)
+
+if args.output:
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(output_path, dpi=150, bbox_inches="tight")
+    print(f"Saved chart to {output_path}")
+
 plt.show()
 
 
